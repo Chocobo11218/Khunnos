@@ -13,6 +13,7 @@ function Dashboard() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                console.log("User is authenticated:", user, user.email);
             } else {
                 // setUser(null);
                 router.push("/"); // Redirect to the login page if not authenticated
