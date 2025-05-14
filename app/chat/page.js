@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function Home() {
     const [messages, setMessages] = useState([]);
@@ -82,28 +83,12 @@ export default function Home() {
         }
     };
 
-    const { primary, secondary, accent, text } = getThemeColors();
+    // const { primary, secondary, accent, text } = getThemeColors();
 
     return (
         <div className={`flex flex-col h-screen p-4 `}
             // ${primary} style={{ backgroundColor : theme === "dark" ? "#1a1a1a" : "#68D4C7" }} // Adjust background color based on theme
         >
-            <div className="flex justify-between items-center mb-4">
-                <div className="flex space-x-2">
-                    <label htmlFor="theme" className={`text-sm ${text}`}>
-                        Theme:
-                    </label>
-                    <select
-                        id="theme"
-                        value={theme}
-                        onChange={handleThemeChange}
-                        className={`p-1 rounded-md border ${text}`}
-                    >
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                    </select>
-                </div>
-            </div>
             <div className={`flex-1 overflow-y-auto rounded-md p-2`}
                 // ${secondary} style={{ backgroundColor: theme === "dark" ? "#1a1a1a" : "#FBFFE3" }}
             >
@@ -117,36 +102,38 @@ export default function Home() {
                         <span
                             className={`p-2 rounded-lg ${
                                 msg.role === "user"
-                                    ? `${accent} text-white`
-                                    : `${primary} ${text}`
+                                    ? `bg-[#68D4C7] text-black`
+                                    : `bg-[#FF803D] text-white`
                             }`}
                         >
                             {msg.text}
                         </span>
-                        <p className={`text-xs ${text} mt-1`}>
-                            {msg.role === "bot" ? "Bot" : "You"} -{" "}
+                        <p className={`text-xs text-gray mt-1`}>
+                            {msg.role === "bot" ? "Khunnos" : "You"} -{" "}
                             {msg.timestamp.toLocaleTimeString()}
                         </p>
                     </div>
                 ))}
             </div>
             {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-            <div className="p-4 rounded-md"
-               style={{ backgroundColor: "#68D4C7" }}> 
-                <div className="flex items-center mt-4">
+            <div className="p-4"
+               style={{ backgroundColor: "#68D4C7", borderRadius: "20px" }}> 
+                <div className="flex flex-col items-end mb-2 space-y-2"
+                    style={{ borderRadius: "18px" }}>
                     <input
                         type="text"
                         placeholder="Type your message..."
                         value={userInput}
                         onChange={(e) => setUserInput(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        className={`flex-1 p-2 rounded-l-md border-t border-b border-l focus:outline-none focus:border-${accent}`}
+                        className={`w-full p-2 bg-white border-t border-b border-l focus:outline-none focus:border-black`}
+                        style={{ borderRadius: "16px" }}
                     />
                     <button
                         onClick={handleSendMessage}
-                        className={`p-2 ${accent} text-white rounded-r-md hover:bg-opacity-80 focus:outline-none`}
+                        className={`p-2 bg-black text-white rounded-full focus:outline-none hover:scale-110 transition-transform duration-300`}
                     >
-                        Send
+                        <FaArrowRight className="text-2xl" style={{color: "#68D4C7"}}/>
                     </button>
                 </div>
             </div>

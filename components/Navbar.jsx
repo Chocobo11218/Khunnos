@@ -127,7 +127,7 @@ const Navbar = () => {
           return (
             <span
               key={index}
-              className="flex items-center p-4 hover:bg-pink-500 hover:text-white "
+              className="flex items-center p-4 hover:bg-[#FF803D] hover:text-white "
             >
               <span className="mr-2">{icon}</span> <span>{title}</span>
             </span>
