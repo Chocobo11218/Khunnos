@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import "firebase/auth";
+import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1OP17wEALL8pckJv0CIVLRqeROB6T_l0",
@@ -11,6 +11,13 @@ const firebaseConfig = {
     measurementId: "G-G0016251YB"
   };
 
-  const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+  // Set session persistence (clears on browser tab close)
+setPersistence(auth, browserSessionPersistence)
+.catch((error) => {
+  console.error("Error setting persistence:", error);
+});
 
   export default app;

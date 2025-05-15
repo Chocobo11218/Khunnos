@@ -1,15 +1,14 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 :root {
   --background: #FBFFE3;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-geist-sans: 'Geist Sans', sans-serif; /* Define if using custom font */
+  --font-geist-mono: 'Geist Mono', monospace; /* Define if using custom font */
 }
 
 body {

@@ -15,17 +15,21 @@ const Page = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        router.push("/dashboard");
       } else {
         setUser(null);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [router]);
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: "select_account", // Forces Google to show account selection
+    });
     try {
       await signInWithPopup(auth, provider);
       router.push("/dashboard");

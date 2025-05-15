@@ -5,45 +5,41 @@ import { BsChatLeftTextFill } from "react-icons/bs";
 import { FaRegCalendarCheck, FaHistory, FaInfoCircle, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useAuth } from "../app/context/AuthContext";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth(); // Get user from context
 
   // If no user is logged in, don't render the Navbar
-  if (!user) {
-    return null;
-  }
+  //if (!user) {
+  //  return null;
+  //}
 
-  const username = user.displayName || user.email || "User";
+  const username = (user ? user.displayName || user.email : "Guest");
 
   const sideList = [
     {
       icon: <FaInfoCircle className="text-2xl" />,
       title: "About",
+      path: "/about",
     },
     {
       icon: <BsChatLeftTextFill className="text-2xl" />,
       title: "My Chat",
+      path: "/chat",
     },
     {
       icon: <FaRegCalendarCheck className="text-2xl" />,
       title: "My Meetings",
+      path: "/meeting",
     },
     {
       icon: <FaHistory className="text-2xl" />,
       title: "Chat History",
+      path: "/history",
     },
   ];
-
-  {/*
-  const navList = [
-    {
-      icon: <AiOutlineHome className="text-2xl mr-2" />,
-      title: "item",
-    },
-  ];
-  */}
 
   const handleDrawer = () => {
     setIsOpen(!isOpen);
@@ -81,25 +77,6 @@ const Navbar = () => {
         <span className="text-xl font-bold">Khunnos</span>
       </div>
 
-      <div className="flex items-center">
-        <div className="hidden md:flex md:justify-between md:bg-transparent">
-          {/*
-          {navList.map(({ icon, title }, index) => {
-            return (
-              <button
-                key={index}
-                title="Wishlist"
-                className="flex items-center p-3 font-medium mr-2 text-center bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-              >
-                <span>{icon}</span>
-                <span>{title}</span>
-              </button>
-            );
-          })}
-          */}
-        </div>
-      </div>
-
       {isOpen && (
         <div className="z-10 fixed inset-0 transition-opacity">
           <div
@@ -123,26 +100,28 @@ const Navbar = () => {
             className="h-auto w-16 mx-auto rounded-full"
           />
         </span>
-        {sideList.map(({ icon, title }, index) => {
+        {sideList.map(({ icon, title, path }, index) => {
           return (
-            <span
-              key={index}
-              className="flex items-center p-4 hover:bg-[#FF803D] hover:text-white "
-            >
-              <span className="mr-2">{icon}</span> <span>{title}</span>
-            </span>
+            <Link href={path} key={index}>
+              <span
+                key={index}
+                className="flex items-center p-4 hover:bg-[#FF803D] hover:text-white "
+              >
+                <span className="mr-2">{icon}</span> <span>{title}</span>
+              </span>
+            </Link>
           );
         })}
         <div className="fixed bottom-0 w-full">
           <div className="flex items-center p-4 font-bold" style={{ backgroundColor: "#FBFFE3" }}>
-          {user.photoURL ? (
-            <img
-              src={user.photoURL}
-              alt="Profile"
-              className="rounded-full w-8 h-8 mr-2"
-            />
-          ) : (
-            <FaUserCircle className="text-2xl" />
+          {user && user.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt="Profile"
+                className="rounded-full w-8 h-8 mr-2"
+              />
+            ) : (
+              <FaUserCircle className="text-2xl mr-2" />
           )}
             <span className="truncate block max-w-full">{username}</span>
           </div>

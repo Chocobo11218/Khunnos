@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import axios from "axios";
+
 
 export default function Home() {
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState("");
-    const [theme, setTheme] = useState("light");
     const [error, setError] = useState(null);
 
     const handleSendMessage = async () => {
@@ -21,27 +22,22 @@ export default function Home() {
         setUserInput("");
 
         try {
-            const response = await fetch("/api/gemini", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ messages, userInput }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                const botMessage = {
-                    text: data.text,
-                    role: "bot",
-                    timestamp: new Date(),
-                };
-                setMessages((prevMessages) => [...prevMessages, botMessage]);
-            } else {
-                setError(data.error || "Failed to send message");
-            }
+            const { data } = await axios.post(
+                "https://us-central1-appdev-f40ab.cloudfunctions.net/Khunnoscall", // Replace with your full endpoint
+                {
+                    username: "test",
+                    INPUT: userInput,
+                }
+            );
+            const botMessage = {
+                text: data.text, // Adjust if `data.text` is not the actual response
+                role: "bot",
+                timestamp: new Date(),
+            };
+            setMessages((prevMessages) => [...prevMessages, botMessage]);
+            setError(null); // Clear any previous error
         } catch (err) {
+            console.error(err);
             setError("Failed to send message. Please try again.");
         }
     };
@@ -53,11 +49,14 @@ export default function Home() {
         }
     };
 
+    // const { primary, secondary, accent, text } = getThemeColors();
 
     return (
         <div className={`flex flex-col h-screen p-4 `}
+            // ${primary} style={{ backgroundColor : theme === "dark" ? "#1a1a1a" : "#68D4C7" }} // Adjust background color based on theme
         >
             <div className={`flex-1 overflow-y-auto rounded-md p-2`}
+                // ${secondary} style={{ backgroundColor: theme === "dark" ? "#1a1a1a" : "#FBFFE3" }}
             >
                 {messages.map((msg, index) => (
                     <div

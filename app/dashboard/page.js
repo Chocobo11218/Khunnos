@@ -32,6 +32,10 @@ function Dashboard() {
         }
     };
 
+    if (!user) {
+        return null; // Prevent rendering until auth state is resolved
+      }
+      
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <div className="p-8 rounded-lg shadow-md">
