@@ -25,12 +25,12 @@ export default function Home() {
             const { data } = await axios.post(
                 "https://us-central1-appdev-f40ab.cloudfunctions.net/Khunnoscall", // Replace with your full endpoint
                 {
-                    username: "test",
+                    username: "fay",
                     INPUT: userInput,
                 }
             );
             const botMessage = {
-                text: data.text, // Adjust if `data.text` is not the actual response
+                text: data?.text || data || "No response from bot.",
                 role: "bot",
                 timestamp: new Date(),
             };
@@ -49,15 +49,9 @@ export default function Home() {
         }
     };
 
-    // const { primary, secondary, accent, text } = getThemeColors();
-
     return (
-        <div className={`flex flex-col h-screen p-4 `}
-            // ${primary} style={{ backgroundColor : theme === "dark" ? "#1a1a1a" : "#68D4C7" }} // Adjust background color based on theme
-        >
-            <div className={`flex-1 overflow-y-auto rounded-md p-2`}
-                // ${secondary} style={{ backgroundColor: theme === "dark" ? "#1a1a1a" : "#FBFFE3" }}
-            >
+        <div className={`flex flex-col h-screen p-4 `}>
+            <div className={`flex-1 overflow-y-auto rounded-md p-2`}>
                 {messages.map((msg, index) => (
                     <div
                         key={index}

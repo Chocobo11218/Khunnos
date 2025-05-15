@@ -12,9 +12,9 @@ const Navbar = () => {
   const { user } = useAuth(); // Get user from context
 
   // If no user is logged in, don't render the Navbar
-  //if (!user) {
-  //  return null;
-  //}
+  if (!user) {
+    return null;
+  }
 
   const username = (user ? user.displayName || user.email : "Guest");
 
