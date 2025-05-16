@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import app from "../../config";
+import Image from "next/image";
+import app from "../config";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import Dashboard from "../dashboard/page.js";
 
-const Page = () => {
+const LoginButton = () => {
   const [user, setUser] = useState(null);
   const router = useRouter();
 
@@ -15,7 +15,7 @@ const Page = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        router.push("/dashboard");
+        router.push("/");
       } else {
         setUser(null);
       }
@@ -32,27 +32,21 @@ const Page = () => {
     });
     try {
       await signInWithPopup(auth, provider);
-      router.push("/dashboard");
     } catch (error) {
       console.error("Error signing in with Google:", error.message);
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      {user ? (
-        // User is logged in, render-dashboard or redirect to the dashboard
-        <Dashboard />
-      ) : (
-        // User is not logged in, render the login button
+    <div className="flex flex-col items-center justify-center mt-10">
         <button
           onClick={signInWithGoogle}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded"
+          className="text-white text-xl p-4 hover:scale-110 transition-transform duration-300 hover:shadow-lg"
+          style={{ backgroundColor: "#FF803D", borderRadius: "26px" }}
         >
-          Sign in with Google
+            Sign in with Google
         </button>
-      )}
     </div>
   );
 };
 
-export default Page;
+export default LoginButton;

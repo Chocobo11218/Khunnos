@@ -1,10 +1,10 @@
 "use client";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../app/context/AuthContext";
 import axios from "axios"; 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Meetings() {
+const CreateCalendar = () => {
   const { user } = useAuth();
   const router = useRouter();
 
@@ -47,13 +47,14 @@ export default function Meetings() {
     <div className="p-4 space-y-4">
       <button
         onClick={handleCreateCalendar}
-        className="bg-blue-500 text-white p-2 rounded"
+        className="text-white text-xl p-4 hover:scale-110 transition-transform duration-300 hover:shadow-lg"
+        style={{ backgroundColor: "#FF803D", borderRadius: "26px" }}
       >
         Create Calendar
       </button>
 
       {calendarUrl && (
-        <div>
+        <div className="flex flex-col items-center">
           <p className="text-green-600">Calendar ready!</p>
           <a
             href={calendarUrl}
@@ -68,3 +69,5 @@ export default function Meetings() {
     </div>
   );
 }
+
+export default CreateCalendar;
