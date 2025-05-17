@@ -9,7 +9,7 @@ const Home = () => {
   const { user } = useAuth();
   
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="flex flex-col items-center">
           <img
             src="/logo.png"

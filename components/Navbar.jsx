@@ -19,6 +19,7 @@ const Navbar = () => {
   }
 
   const username = (user ? user.displayName || user.email : "Guest");
+  const userEmail = user ? user.email : "";
 
   const sideList = [
     {
@@ -34,7 +35,7 @@ const Navbar = () => {
     {
       icon: <BsChatLeftTextFill className="text-2xl" />,
       title: "Chatbot",
-      path: "/history",
+      path: "/khunnoscall",
     },
   ];
 
@@ -121,7 +122,7 @@ const Navbar = () => {
         
         {/* User Info */}
         <div className="fixed bottom-0 w-full">
-          <div className="flex items-center p-4 font-bold" style={{ backgroundColor: "#FBFFE3" }}>
+          <div className="flex items-center p-4" style={{ backgroundColor: "#FBFFE3" }}>
           {user && user.photoURL ? (
               <img
                 src={user.photoURL}
@@ -131,7 +132,9 @@ const Navbar = () => {
             ) : (
               <FaUserCircle className="text-2xl mr-2" />
           )}
-            <span className="truncate block max-w-full">{username}</span>
+            <div className="font-bold truncate block max-w-full">{username}
+            <div className="font-light text-sm text-gray-400 truncate block max-w-full">{userEmail}</div>
+            </div>
           </div>
         </div>
       </aside>
