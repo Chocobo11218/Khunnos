@@ -35,11 +35,11 @@ const CreateCalendar = () => {
   const width = useWindowSize();
 
   useEffect(() => {
-    if (!user) {
-      setCalendarUrl("");
-      setError("");
-    }
-  }, [user]);
+    // Reset on user change
+    console.log("Auth user changed:", user);
+    setCalendarUrl("");
+    setError("");
+  }, [user?.email]);
 
   const handleCreateCalendar = async () => {
     if (!user) {
@@ -56,6 +56,7 @@ const CreateCalendar = () => {
         "https://us-central1-appdev-f40ab.cloudfunctions.net/getdata",
         { username: user.email }
       );
+      console.log("Check calendar data:", checkRes.data);
 
       if (checkRes.data && checkRes.data.footprint && checkRes.data.footprint[user.email]) {
         const existingCalendarUrl = `https://calendar.google.com/calendar/u/0/r?cid=${checkRes.data.footprint[user.email]}`;
@@ -99,8 +100,10 @@ const CreateCalendar = () => {
         { username: user.email }
       );
 
+      console.log("User:", user.email)
       console.log("New calendar created:", createRes.data);
       setCalendarUrl(createRes.data);
+      // window.open(calendarUrl, "_blank");
     } catch (error) {
       console.error("Error details:", error.response?.data, error.message);
       setError("Failed to create a new calendar. Please try again.");
@@ -123,7 +126,7 @@ const CreateCalendar = () => {
         { username: user.email }
       );
 
-      if (checkRes.data && checkRes.data.footprint && checkRes.data.footprint[user.email]) {
+      if (checkRes.data && checkRes.data.footprint) {
         const existingCalendarUrl = `https://calendar.google.com/calendar/u/0/r?cid=${checkRes.data.footprint[user.email]}`;
         console.log("User already has a calendar:", existingCalendarUrl);
         setCalendarUrl(existingCalendarUrl);
@@ -132,6 +135,7 @@ const CreateCalendar = () => {
       }
 
       if (calendarUrl) {
+        console.log("calendarUrl:", calendarUrl)
         window.open(calendarUrl, "_blank");
       } else {
         setError("Please create a calendar first.");
