@@ -1,5 +1,6 @@
 # Khunnos
 
+
 Khunnos is a smart chatbot assistant that helps you manage your calendar by turning appointment-related chat messages into Google Calendar events.
 
 ## Problem
@@ -35,8 +36,8 @@ Messaging apps often contain reminders, meeting times, and appointment details, 
 
 ## Project Documentation
 
-- Project deck / report: `Khonnos_webapp_2025.pdf`
-  - https://github.com/user-attachments/files/24358853/Khonnos_webapp_2025.pdf
+- Project deck / report:
+  - [Khonnos_webapp_2025.pdf](https://github.com/user-attachments/files/24358874/Khonnos_webapp_2025.pdf)
 
 ---
 
